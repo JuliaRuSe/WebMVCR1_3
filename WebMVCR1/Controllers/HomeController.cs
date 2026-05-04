@@ -5,6 +5,8 @@ namespace WebMVCR1.Controllers
 {
     public class HomeController : Controller
     {
+        private static PersonRepository db = new PersonRepository();
+
         //public IActionResult Index()
         //{
         //    return View();
@@ -40,7 +42,14 @@ namespace WebMVCR1.Controllers
         [HttpPost]
         public ViewResult InputData(Person p)
         {
+            db.AddResponse(p);
             return View("Hello", p);
+        }
+        public ViewResult OutputData()
+        {
+            ViewBag.Pers = db.GetAllResponses;
+            ViewBag.Count = db.NumberOfPerson;
+            return View("ListPerson");
         }
     }
 }
